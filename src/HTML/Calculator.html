@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/Calculator.css">
+</head>
+<script src="https://unpkg.com/vue"></script> <!-- подключаем VUE -->
+<script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script> <!-- подключаем JQUERY -->
+<body>
+<div id="app">
+    <div class="grid">
+        <input type="text" class="input-number" @keyup.enter = "calc()" v-model="result"  placeholder='0'>
+        <button @click="input(op)" class="cell op" v-for="op in operations">
+            {{ op }}
+        </button>
+        <button @click="Reset()" class="cell op">Reset</button>
+        <button @click="calc()" class="cell op">=</button>
+        <button @click="input(number)" class="cell num" v-for="number in numbers">
+            {{ number }}
+        </button>
+        <p v-if="array.length > 0">{{ array }}</p>
+        <p> {{ reactiveAnswer }}</p>
+    </div>
+</div>
+</body>
+
+<script>
+    "use strict"
+
+    function check_operation(array, string) {
+        string = string.toString();
+        for (let i = 0; i < array.length; i++) {
+            if (string.indexOf(array[i]) > -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            operations: ['+', '-', '*', '/', '%'],
+            numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            result: '',
+            array: [],
+
+        },
+        computed: {
+            reactiveAnswer: function () {
+                if (this.result === '' || check_operation(this.operations, this.result) == false) {
+                    return '';
+                }
+                try {
+                    return this.result + ' = ' + eval(this.result);
+                } catch (e) {
+                    return this.result
+                }
+            }
+        },
+        methods: {
+            Reset: function () {
+                this.result = '';
+            },
+            input: function (char) {
+                this.result = this.result.toString();
+                this.result += char;
+                console.log(this.result);
+            },
+            calc: function () {
+                this.array.push(this.result + '=' + eval(this.result))
+                this.result = eval(this.result);
+            },
+        }
+    })
+
+    $('body').on('input', '.input-number', function(){
+        this.value = this.value.replace(/[^0-9\.\+\-\*\/\%]/g, '');
+    });
+
+</script>
+</html>

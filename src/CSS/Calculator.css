@@ -1,0 +1,14 @@
+h1 {
+    width: max-content;
+    height: max-content;
+    border: 1px solid red;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Убрать стрелочки из поля ввода*/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
