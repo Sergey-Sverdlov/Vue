@@ -9,11 +9,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script> <!-- подключаем Velocity для анимации -->
 <body>
         <div id="main">
-            <nav v-bind:class="active" v-on:click.prevent>
+            <nav>
                 <a href="#" class="home">
                     Главная
                 </a>
-                <a href="#" class="projects">
+                <a href="Calculator.html" class="projects">
                     Калькулятор
                 </a>
                 <a href="#" class="services">
@@ -30,6 +30,7 @@
                 <p v-bind:key="number" v-if="number"> Ваше число {{ number }}</p>
             </transition>
         </div>
+
 </body>
 
 <script src="../JS/MainPage.js"></script>
