@@ -9,19 +9,34 @@
 <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script> <!-- подключаем JQUERY -->
 <body>
 <div id="app">
+    <p class="reactiveAnswer"> {{ reactiveAnswer }}</p>
     <div class="grid">
+
         <input type="text" class="input-number" @keyup.enter = "calc()" v-model="result"  placeholder='0'>
+
         <button @click="input(op)" class="cell op" v-for="op in operations">
             {{ op }}
         </button>
-        <button @click="Reset()" class="cell op">Reset</button>
-        <button @click="calc()" class="cell op">=</button>
+        <button @click="calc" class="cell op">=</button>
+        <button @click="Reset" class="cell op">Reset</button>
         <button @click="input(number)" class="cell num" v-for="number in numbers">
             {{ number }}
         </button>
-        <p v-if="array.length > 0">{{ array }}</p>
-        <p> {{ reactiveAnswer }}</p>
+
     </div>
+    <button v-if="showOperations" @click="showOperations = !showOperations">Скрыть последние операции</button>
+    <button v-if="!showOperations" @click="showOperations = !showOperations">Показать последние операции</button>
+
+
+    <ul v-if="showOperations">
+        <li v-for="(element) in array">
+            {{ element }}
+        </li>
+    </ul>
+
+    <button @click="array = []">
+        Очистить последние операции
+    </button>
 </div>
 </body>
 
@@ -30,6 +45,7 @@
 
     function check_operation(array, string) {
         string = string.toString();
+        string = string.slice(1);
         for (let i = 0; i < array.length; i++) {
             if (string.indexOf(array[i]) > -1) {
                 return true;
@@ -42,15 +58,15 @@
     var vm = new Vue({
         el: '#app',
         data: {
-            operations: ['+', '-', '*', '/', '%'],
+            operations: ['+', '-', '*', '/', '%', '(', ')'],
             numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             result: '',
             array: [],
-
+            showOperations: true,
         },
         computed: {
             reactiveAnswer: function () {
-                if (this.result === '' || check_operation(this.operations, this.result) == false) {
+                if (this.result === '' || check_operation(this.operations,this.result) == false) {
                     return '';
                 }
                 try {
@@ -70,14 +86,26 @@
                 console.log(this.result);
             },
             calc: function () {
-                this.array.push(this.result + '=' + eval(this.result))
+                try {
+                    eval(this.result);
+                } catch (e) {
+                    alert("Введите корректное значение");
+                    return ;
+                }
+
+                if (this.reactiveAnswer !== '') {
+                    this.array.splice(0, 0, this.result + '=' + eval(this.result));
+                }
+
                 this.result = eval(this.result);
+
+
             },
         }
     })
 
     $('body').on('input', '.input-number', function(){
-        this.value = this.value.replace(/[^0-9\.\+\-\*\/\%]/g, '');
+        this.value = this.value.replace(/[^0-9\.\+\-\*\/\%\(\)]/g, '');
     });
 
 </script>
