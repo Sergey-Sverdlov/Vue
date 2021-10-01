@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор случайных чисел</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue"></script> <!-- подключаем VUE -->
+<script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script> <!-- подключаем JQUERY -->
+<div id="app">
+    <div id="generator">
+        <h1 v-if="count === 1">Ваше случайное число</h1>
+        <h1 v-else>Ваша случайная последовательность</h1>
+        <p id="rNUm" v-if="array.length > 0"> {{ array.join(' ') }}</p>
+        <p>От</p>
+        <input type="number" v-model.number="min">
+        <p>До</p>
+        <input type="number" v-model.number="max">
+        <br />
+        <br />
+        <p>Количество чисел необходимых для генерации</p>
+        <input class="count_elements" type="number" v-model.number="count">
+        <button v-if="count === 1" @click="generateNumber">Сгенерировать число</button>
+        <button v-else-if="count > 1" @click="generateNumber">Сгенерировать последовательность чисел</button>
+        <p v-else>Введите количество чисел больше 0</p>
+        <input type="checkbox" id="delequal" v-model="checkequal" v-if="count > 1">
+        <label for="delequal" v-if="count > 1">Исключить повторения</label>
+    </div>
+</div>
+<script src="../JS/GeneratorRandomNumber.js"></script>
+
+</body>
+</html>

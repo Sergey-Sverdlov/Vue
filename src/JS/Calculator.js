@@ -1,5 +1,6 @@
 "use strict"
 
+
 function check_operation(array, string) {
     string = string.toString();
     string = string.slice(1);
@@ -29,7 +30,7 @@ var vm = new Vue({
             try {
                 return this.result + ' = ' + eval(this.result);
             } catch (e) {
-                return this.result
+                return this.result;
             }
         }
     },
@@ -54,12 +55,12 @@ var vm = new Vue({
             }
 
             this.result = eval(this.result);
-
-
         },
+    },
+    watch: {
+        result(val) {
+            this.result = val.replace(/[^0-9\.\+\-\*\/\%\(\)]/g, '');
+        }
     }
 })
 
-$('body').on('input', '.input-number', function(){
-    this.value = this.value.replace(/[^0-9\.\+\-\*\/\%\(\)]/g, '');
-});
