@@ -3,31 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Генератор случайных чисел</title>
+    <link rel="stylesheet" type="text/css" href="../CSS/GeneratorRandomNumber.css">
 </head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script> <!-- Velocity -->
 <body>
 <script src="https://unpkg.com/vue"></script> <!-- подключаем VUE -->
 <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script> <!-- подключаем JQUERY -->
+
 <div id="app">
     <div id="generator">
         <h1 v-if="count === 1">Ваше случайное число</h1>
+
         <h1 v-else>Ваша случайная последовательность</h1>
-        <p id="rNUm" v-if="array.length > 0"> {{ array.join(' ') }}</p>
-        <p>От</p>
-        <input type="number" v-model.number="min">
-        <p>До</p>
-        <input type="number" v-model.number="max">
-        <br />
-        <br />
+
+        <transition @before-enter="AnimationStart" @enter="enter" @leave="AnimationFinish" :css="false" mode="out-in">
+            <p :key="array[0]" id="rNUm" v-if="array.length > 0"> {{ array.join(' ') }}</p>
+        </transition>
+
+
+        <div class="InputNumber">
+            <div id="fromNumber">
+                <p>От</p>
+                <input type="number" v-model.number="min">
+            </div>
+            <div id="ToNumber">
+                <p>До</p>
+                <input type="number" v-model.number="max">
+            </div>
+        </div>
         <p>Количество чисел необходимых для генерации</p>
-        <input class="count_elements" type="number" v-model.number="count">
-        <button v-if="count === 1" @click="generateNumber">Сгенерировать число</button>
-        <button v-else-if="count > 1" @click="generateNumber">Сгенерировать последовательность чисел</button>
-        <p v-else>Введите количество чисел больше 0</p>
-        <input type="checkbox" id="delequal" v-model="checkequal" v-if="count > 1">
-        <label for="delequal" v-if="count > 1">Исключить повторения</label>
+
+        <div class="InputCount">
+            <input class="count_elements" type="number" v-model.number="count">
+
+
+
+
+       <div id="Del">
+            <input type="checkbox" id="delequal" v-model="checkequal" v-if="count > 1">
+            <label for="delequal" v-if="count > 1">Исключить повторения</label>
+           <button v-if="count === 1" @click="generateNumber">Сгенерировать число</button>
+           <button v-else-if="count > 1" @click="generateNumber">Сгенерировать последовательность чисел</button>
+           <p v-else>Введите количество чисел больше 0</p>
+       </div>
+        </div>
     </div>
 </div>
-<script src="../JS/GeneratorRandomNumber.js"></script>
 
+<script src="../JS/GeneratorRandomNumber.js"></script>
 </body>
 </html>

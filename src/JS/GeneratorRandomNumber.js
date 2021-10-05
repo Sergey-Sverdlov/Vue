@@ -11,6 +11,12 @@ let vm = new Vue({
     methods: {
         generateNumber: function() {
             this.array = [];
+            if (this.min > this.max) {
+                this.min += this.max;
+                this.max = this.min - this.max;
+                this.min = this.min - this.max;
+            }
+
             for (let i = 0; i < this.count; i++) {
                 this.number = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
                 if (this.checkequal) {
@@ -30,8 +36,27 @@ let vm = new Vue({
                     this.array.push(this.number);
                 }
             }
-        }
+        },
+        AnimationStart: function (el) {
+            el.style.opacity = 0
+            el.style.transformOrigin = 'left'
+        },
+        enter: function (el, done) {
+            Velocity(el, { opacity: 1, fontSize: '3.4em' }, { duration: 300 })
+            Velocity(el, { fontSize: '3em' }, { complete: done })
+        },
+        AnimationFinish: function (el, done) {
+            Velocity(el, { translateX: '15px', rotateZ: '50deg', opacity: 0 }, { duration: 500 })
+            Velocity(el, { rotateZ: '100deg' }, { complete: done })
+            Velocity(el, {
+                rotateZ: '100deg',
+                translateY: '50px',
+                translateX: '70px',
+                opacity: 0
+            },  { complete: done })
+        },
     },
+
     watch: {
         count(val) {
             if (val < 1) {

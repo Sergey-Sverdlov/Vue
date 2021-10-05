@@ -64,3 +64,11 @@ input[type="text"] {
     height: 20px;
     border: none;
 }
+.button_back {
+    font-size: 20px;
+    display: inline-block;
+    margin: 60px auto 45px;
+    background-color: #5597b4;
+    box-shadow: 30px 10px 10px #ccc;
+    border-radius: 2px;
+}

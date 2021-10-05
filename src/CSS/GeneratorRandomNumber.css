@@ -1,0 +1,65 @@
+body{
+    background-color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-weight: 300;
+}
+
+#generator {
+    background: white;
+    max-width: 25em;
+}
+
+h1 {
+    color: white;
+    background-color: #512DA8;
+    padding: 5px;
+}
+
+#rNUm {
+    padding: 0.8em;
+    font-size: 3em;
+    margin: 0;
+    color: black;
+}
+
+.InputNumber {
+    display: flex;
+    align-content: center;
+    flex-flow: row wrap;
+    border: 0;
+    margin-bottom: 30px;
+}
+
+Input {
+    max-width: 80px;
+}
+
+#ToNumber > input {
+    float: right;
+}
+
+
+
+#ToNumber {
+    margin-left: auto;
+    width: max-content;
+}
+
+button {
+    background-color: #512DA8;
+    color: white;
+}
+
+#Del {
+    margin-top: 15px;
+    text-align: center;
+}
+
+#Del > input {
+    box-sizing: border-box;
+    align-items: center;
+}
