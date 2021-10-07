@@ -32,15 +32,19 @@ input[type="text"] {
 }
 
 .grid {
-    display: flex;
+    display: -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+    display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
     flex-wrap: wrap;
     justify-content: space-around;
     width: 100%;
 }
 
 .cell {
-    flex: 33%;
-    height: 50px;
+    /*-webkit-flex: 30%;*/
+    flex: 30%;
+    height: 30px;
     font-size: 18px;
     border: none;
 }
